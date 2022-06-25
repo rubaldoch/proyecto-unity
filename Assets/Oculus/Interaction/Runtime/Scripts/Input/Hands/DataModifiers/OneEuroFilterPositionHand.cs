@@ -10,72 +10,11 @@ ANY KIND, either express or implied. See the License for the specific language g
 permissions and limitations under the License.
 ************************************************************************************/
 
-using UnityEngine;
-using UnityEngine.Profiling;
 
-namespace Oculus.Interaction.Input
+using System;
+
+namespace Oculus.Interaction.Deprecated
 {
-    public class OneEuroFilterPositionHand : Hand
-    {
-        [Header("Wrist")]
-        [SerializeField]
-        private OneEuroFilterPropertyBlock _wristFilterProperties =
-                                           new OneEuroFilterPropertyBlock(2f, 10f);
-
-        private IOneEuroFilter<Vector3> _wristFilter;
-        private int _lastFrameUpdated;
-        private Pose _lastSmoothedPose;
-
-        protected override void Start()
-        {
-            base.Start();
-
-            _lastFrameUpdated = 0;
-            _wristFilter = OneEuroFilter.CreateVector3();
-        }
-
-        protected override void Apply(HandDataAsset handDataAsset)
-        {
-            if (!handDataAsset.IsTracked)
-            {
-                return;
-            }
-
-            Profiler.BeginSample($"{nameof(OneEuroFilterPositionHand)}." +
-                                 $"{nameof(OneEuroFilterPositionHand.Apply)}");
-
-            if (Time.frameCount > _lastFrameUpdated)
-            {
-                _lastFrameUpdated = Time.frameCount;
-                _lastSmoothedPose = ApplyFilter(handDataAsset.Root);
-            }
-
-            handDataAsset.Root = _lastSmoothedPose;
-            handDataAsset.RootPoseOrigin = PoseOrigin.FilteredTrackedPose;
-
-            Profiler.EndSample();
-        }
-
-        private Pose ApplyFilter(Pose pose)
-        {
-            _wristFilter.SetProperties(_wristFilterProperties);
-            pose.position = _wristFilter.Step(pose.position, Time.fixedDeltaTime);
-            return pose;
-        }
-
-        #region Inject
-        public void InjectAllOneEuroFilterPositionDataModifier(UpdateModeFlags updateMode, IDataSource updateAfter,
-            DataModifier<HandDataAsset> modifyDataFromSource, bool applyModifier,
-            Component[] aspects, OneEuroFilterPropertyBlock wristFilterProperties)
-        {
-            base.InjectAllHand(updateMode, updateAfter, modifyDataFromSource, applyModifier, aspects);
-            InjectWristFilterProperties(wristFilterProperties);
-        }
-
-        public void InjectWristFilterProperties(OneEuroFilterPropertyBlock wristFilterProperties)
-        {
-            _wristFilterProperties = wristFilterProperties;
-        }
-        #endregion
-    }
+    [Obsolete("Replaced by HandFilter")]
+    public class OneEuroFilterPositionHand { }
 }
