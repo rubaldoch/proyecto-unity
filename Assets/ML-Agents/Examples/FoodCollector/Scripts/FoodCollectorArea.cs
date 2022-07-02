@@ -16,7 +16,8 @@ public class FoodCollectorArea : Area
         {
             GameObject f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
                 Random.Range(-range, range)) + transform.position,
-                Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
+                Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)),
+                this.transform);
             f.GetComponent<FoodLogic>().respawn = respawnFood;
             f.GetComponent<FoodLogic>().myArea = this;
         }

@@ -27,8 +27,8 @@ public class Ball3DAgent : Agent
         {
             sensor.AddObservation(gameObject.transform.rotation.z);
             sensor.AddObservation(gameObject.transform.rotation.x);
-            sensor.AddObservation(ball.transform.position - gameObject.transform.position);
-            sensor.AddObservation(m_BallRb.velocity);
+            sensor.AddObservation((ball.transform.position - gameObject.transform.position) * 5);
+            sensor.AddObservation(m_BallRb.velocity * 5);
         }
     }
 
@@ -67,7 +67,7 @@ public class Ball3DAgent : Agent
         gameObject.transform.Rotate(new Vector3(1, 0, 0), Random.Range(-10f, 10f));
         gameObject.transform.Rotate(new Vector3(0, 0, 1), Random.Range(-10f, 10f));
         m_BallRb.velocity = new Vector3(0f, 0f, 0f);
-        ball.transform.position = new Vector3(Random.Range(-1.5f, 1.5f), 4f, Random.Range(-1.5f, 1.5f))
+        ball.transform.position = new Vector3(Random.Range(-0.3f, 0.3f), 4f, Random.Range(-0.3f, 0.3f))
             + gameObject.transform.position;
         //Reset the parameters when the Agent is reset.
         SetResetParameters();
