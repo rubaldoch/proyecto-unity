@@ -48,9 +48,9 @@ public class Ball3DAgent : Agent
         {
             gameObject.transform.Rotate(new Vector3(1, 0, 0), actionX);
         }
-        if ((ball.transform.position.y - gameObject.transform.position.y) < -2f ||
-            Mathf.Abs(ball.transform.position.x - gameObject.transform.position.x) > 3f ||
-            Mathf.Abs(ball.transform.position.z - gameObject.transform.position.z) > 3f)
+        if ((ball.transform.position.y - gameObject.transform.position.y) * 5 < -2f ||
+            Mathf.Abs((ball.transform.position.x - gameObject.transform.position.x) * 5) > 3f ||
+            Mathf.Abs((ball.transform.position.z - gameObject.transform.position.z) * 5) > 3f)
         {
             SetReward(-1f);
             EndEpisode();
@@ -67,7 +67,7 @@ public class Ball3DAgent : Agent
         gameObject.transform.Rotate(new Vector3(1, 0, 0), Random.Range(-10f, 10f));
         gameObject.transform.Rotate(new Vector3(0, 0, 1), Random.Range(-10f, 10f));
         m_BallRb.velocity = new Vector3(0f, 0f, 0f);
-        ball.transform.position = new Vector3(Random.Range(-0.3f, 0.3f), 4f, Random.Range(-0.3f, 0.3f))
+        ball.transform.position = new Vector3(Random.Range(-1.5f, 1.5f), 4f, Random.Range(-1.5f, 1.5f)) / 5
             + gameObject.transform.position;
         //Reset the parameters when the Agent is reset.
         SetResetParameters();

@@ -31,7 +31,7 @@ public class Ball3DHardAgent : Agent
     {
         get
         {
-            return ball.transform.position - gameObject.transform.position;
+            return (ball.transform.position - gameObject.transform.position) * 5;
         }
     }
 

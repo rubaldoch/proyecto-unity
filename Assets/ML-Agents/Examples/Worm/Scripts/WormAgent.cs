@@ -10,7 +10,7 @@ public class WormAgent : Agent
     const float m_MaxWalkingSpeed = 10; //The max walking speed
 
     [Header("Target Prefabs")] public Transform TargetPrefab; //Target prefab to use in Dynamic envs
-    private Transform m_Target; //Target the agent will walk towards during training.
+    public Transform m_Target; //Target the agent will walk towards during training.
 
     [Header("Body Parts")] public Transform bodySegment0;
     public Transform bodySegment1;
@@ -53,7 +53,7 @@ public class WormAgent : Agent
     /// <param name="pos"></param>
     void SpawnTarget(Transform prefab, Vector3 pos)
     {
-        m_Target = Instantiate(prefab, pos, Quaternion.identity, transform.parent);
+        // m_Target = Instantiate(prefab, pos, Quaternion.identity, transform.parent);
     }
 
     /// <summary>
